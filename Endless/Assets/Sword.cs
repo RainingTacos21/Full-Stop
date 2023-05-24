@@ -4,25 +4,41 @@ using UnityEngine;
 
 public class Sword : MonoBehaviour
 {
+    private Vector2 startPos;
+    public string dir;
+
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    void OnCollisionEnter2D(Collision2D collision2D)
-    {
-        // Debug.Log("krjhg3irgf");
-        if (collision2D.gameObject.tag == "enemy")
-        {
-            Debug.Log("stab enemy");
-        }
+        startPos = transform.position;
+        dir = "right";
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKey("a"))
+        {
+            dir = "left";
+        }
+        if (Input.GetKey("d"))
+        {
+            dir = "right";
+        }
+
+        GameObject player = GameObject.Find("Player");
+        Transform playerTransform = player.transform;
+        // get player position
+        Vector2 position = playerTransform.position;
+
+        if (dir == "left")
+        {
+            transform.position = new Vector2(position.x - 0.6f, position.y);
+        }
+        else
+        {
+            transform.position = new Vector2(position.x + 0.6f, position.y);
+        }
     }
 
 }

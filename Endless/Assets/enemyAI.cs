@@ -4,36 +4,37 @@ using UnityEngine;
 
 public class enemyAI : MonoBehaviour
 {
-    public float speed = 0.1f;
-    public float seconds;
-
+    public int health;
+    public float speed = 5f;
+    [Range(0f, 100f)] public float offset;
+    private Vector2 startPos;
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    public void goLeft()
-    {
-        transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x -4, transform.position.y), speed * Time.deltaTime);
-    }
-    public void goRight()
-    {
-        transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x + 4, transform.position.y), speed * Time.deltaTime);
+        health = 2;
+        startPos = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        seconds += Time.deltaTime(seconds);
-        if(seconds == 5)
+        if(Vector2.Distance(transform.position, new Vector2(startPos.x + offset, transform.position.y)) <= 1.0f)
         {
-            goLeft();
+            offset -= (offset * 2);
         }
-        else if(seconds == 10)
+        transform.position = Vector2.MoveTowards(transform.position, new Vector2(startPos.x + offset, transform.position.y), (speed * Time.deltaTime));
+    }
+
+    void OnCollisionEnter2D(Collision2D collision2D)
+    {
+        if (collision2D.gameObject.tag == "weapon")
         {
-            goRight();
-            seconds = 0;
+            Debug.Log("enemy hit , solider down");
+            health = health - 1;
+            if(health < 1)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }
