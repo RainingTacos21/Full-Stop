@@ -33,11 +33,11 @@ public class Sword : MonoBehaviour
 
         if (dir == "left")
         {
-            transform.position = new Vector2(position.x - 0.6f, position.y);
+            transform.position = new Vector2(position.x - 0.55f, position.y);
         }
         else
         {
-            transform.position = new Vector2(position.x + 0.6f, position.y);
+            transform.position = new Vector2(position.x + 0.55f, position.y);
         }
     }
 

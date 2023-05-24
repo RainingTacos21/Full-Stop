@@ -34,6 +34,12 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log(transform.position.y);
             GetComponent<HealthManager>().death();
         }
+        
+        if (transform.position.y > 5)
+        {
+            Debug.Log(transform.position.y);
+            GetComponent<HealthManager>().death();
+        }
     }
 }
  
